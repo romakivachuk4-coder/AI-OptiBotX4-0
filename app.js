@@ -55,7 +55,7 @@ function applyLang() {
 }
 
 function populatePairs() {
-    const mainPairs = [\'Анализ фото\','EUR/USD','USD/JPY','GBP/USD','USD/CHF','USD/CAD','AUD/USD','NZD/USD'];
+    const mainPairs = ['Анализ фото','EUR/USD','USD/JPY','GBP/USD','USD/CHF','USD/CAD','AUD/USD','NZD/USD'];
     const otherPairs = [
         'EUR/GBP','EUR/JPY','GBP/JPY','AUD/JPY','CHF/JPY','USD/SGD','USD/HKD','USD/TRY',
         'EUR/AUD','CAD/JPY','NZD/JPY','AUD/NZD','EUR/CAD','GBP/CAD','AUD/CAD','NZD/CAD',
@@ -267,7 +267,7 @@ els.analyzeBtn.addEventListener('click', async () => {
     els.result.textContent = '';
     els.result.dataset.custom = '';
     els.analyzeBtn.disabled = true;
-    els.result.style.color = ''; 
+    els.result.style.color = '';
     try {
         await new Promise(res=>setTimeout(res, 1100));
         const pair = (els.pairSelect && els.pairSelect.value) ? els.pairSelect.value : 'EUR/USD';
@@ -285,12 +285,23 @@ els.analyzeBtn.addEventListener('click', async () => {
             els.result.textContent = text;
             els.result.style.color = color;
         }
+
+        const fakeScore = (Math.random()*2-1).toFixed(2); // -1..1
+        const scoreNum = parseFloat(fakeScore);
+        const isBuy = scoreNum > 0;
+        const signal = isBuy ? 'BUY' : 'SELL';
+        const arrow = isBuy ? '↑' : '↓';
+        const color = isBuy ? '#4ade80' : '#f87171';
+        const text = `${pair}: ${signal} ${arrow} (${fakeScore})`;
+        els.result.textContent = text;
+        els.result.style.color = color;
         els.result.dataset.custom = '1';
     } finally {
         els.loading.classList.add('hidden');
         els.analyzeBtn.disabled = false;
     }
-    let deferredPrompt;
+
+let deferredPrompt;
 const installBtn = document.getElementById('install-btn');
 
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -485,4 +496,33 @@ if (installBtn) {
     });
 }
 
+});
+
+
+// ==== Force show install button until installed ====
+document.addEventListener('DOMContentLoaded', function() {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    const isAndroid = /android/i.test(ua);
+
+    if (!localStorage.getItem('pwaInstalled')) {
+        const installBtn = document.getElementById('install-btn');
+        if (installBtn) {
+            installBtn.classList.remove('hidden');
+            installBtn.addEventListener('click', async () => {
+                if (isIOS) {
+                    alert('Чтобы установить приложение, нажмите “Поделиться” → “На экран Домой”');
+                } else if (window.deferredPrompt) {
+                    window.deferredPrompt.prompt();
+                    const choiceResult = await window.deferredPrompt.userChoice;
+                    if (choiceResult.outcome === 'accepted') {
+                        localStorage.setItem('pwaInstalled', '1');
+                        installBtn.classList.add('hidden');
+                    }
+                } else {
+                    alert('Установка поддерживается только в Chrome/Edge на Android.');
+                }
+            });
+        }
+    }
 });
