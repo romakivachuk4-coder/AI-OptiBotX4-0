@@ -55,7 +55,7 @@ function applyLang() {
 }
 
 function populatePairs() {
-    const mainPairs = ['Анализ фото','EUR/USD','USD/JPY','GBP/USD','USD/CHF','USD/CAD','AUD/USD','NZD/USD'];
+    const mainPairs = ['EUR/USD','USD/JPY','GBP/USD','USD/CHF','USD/CAD','AUD/USD','NZD/USD'];
     const otherPairs = [
         'EUR/GBP','EUR/JPY','GBP/JPY','AUD/JPY','CHF/JPY','USD/SGD','USD/HKD','USD/TRY',
         'EUR/AUD','CAD/JPY','NZD/JPY','AUD/NZD','EUR/CAD','GBP/CAD','AUD/CAD','NZD/CAD',
@@ -70,10 +70,12 @@ function populatePairs() {
     if (!els.pairSelect) return;
     let html = '<optgroup label="Main Pairs">';
     mainPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -83,7 +85,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -91,10 +92,12 @@ if (installBtn) {
     html += '</optgroup>';
     html += '<optgroup label="Other Pairs">';
     otherPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -104,7 +107,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -112,10 +114,12 @@ if (installBtn) {
     html += '</optgroup>';
     html += '<optgroup label="Pocket Option OTC">';
     otcPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -125,7 +129,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -147,10 +150,12 @@ function showPreview(file) {
 els.cameraBtn.addEventListener('click', () => {
     if (els.photoInput) els.photoInput.click();
 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -160,7 +165,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -172,10 +176,12 @@ els.photoInput.addEventListener('change', (e) => {
         showPreview(file);
     }
 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -185,7 +191,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -200,10 +205,12 @@ els.removePhoto.addEventListener('click', (e) => {
         els.preview.setAttribute('aria-hidden','true');
     }
 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -213,37 +220,22 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
 });
 
 els.analyzeBtn.addEventListener('click', async () => {
+    // Простая имитация анализа
     if (!els.loading || !els.result) return;
     els.loading.classList.remove('hidden');
     els.result.textContent = '';
     els.result.dataset.custom = '';
     els.analyzeBtn.disabled = true;
-    els.result.style.color = '';
+    els.result.style.color = ''; // сброс цвета
     try {
         await new Promise(res=>setTimeout(res, 1100));
         const pair = (els.pairSelect && els.pairSelect.value) ? els.pairSelect.value : 'EUR/USD';
-        if (pair === 'Анализ фото') {
-            els.result.textContent = 'Результат анализа фото: Объект обнаружен ✅';
-            els.result.style.color = '#4ade80';
-        } else {
-            const fakeScore = (Math.random()*2-1).toFixed(2);
-            const scoreNum = parseFloat(fakeScore);
-            const isBuy = scoreNum > 0;
-            const signal = isBuy ? 'BUY' : 'SELL';
-            const arrow = isBuy ? '↑' : '↓';
-            const color = isBuy ? '#4ade80' : '#f87171';
-            const text = `${pair}: ${signal} ${arrow} (${fakeScore})`;
-            els.result.textContent = text;
-            els.result.style.color = color;
-        }
-
         const fakeScore = (Math.random()*2-1).toFixed(2); // -1..1
         const scoreNum = parseFloat(fakeScore);
         const isBuy = scoreNum > 0;
@@ -259,10 +251,12 @@ els.analyzeBtn.addEventListener('click', async () => {
         els.analyzeBtn.disabled = false;
     }
 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -272,7 +266,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -284,10 +277,12 @@ if (els.langToggle) {
         lang = lang === 'en' ? 'ru' : 'en';
         applyLang();
     
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -297,7 +292,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -328,10 +322,12 @@ document.addEventListener('pointerdown', function(e){
         circle.style.transform = 'scale(1)';
         circle.style.opacity = '0';
     
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -341,17 +337,18 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
 });
     setTimeout(()=>{ circle.remove(); }, 700);
 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -361,7 +358,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -374,10 +370,12 @@ applyLang();
 // Register service worker if available and not already registered
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js').catch(()=>{
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -387,7 +385,6 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
@@ -395,10 +392,12 @@ if (installBtn) {
 }
 
 
+let deferredPrompt;
 
+    e.preventDefault();
+    deferredPrompt = e;
+});
 
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -408,14 +407,7 @@ if (installBtn) {
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
-        installBtn.classList.add('hidden');
     });
 }
 
-});
-
-
-
-        }
-    }
 });
