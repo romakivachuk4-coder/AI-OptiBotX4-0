@@ -70,14 +70,7 @@ function populatePairs() {
     if (!els.pairSelect) return;
     let html = '<optgroup label="Main Pairs">';
     mainPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -98,14 +91,7 @@ if (installBtn) {
     html += '</optgroup>';
     html += '<optgroup label="Other Pairs">';
     otherPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -126,14 +112,7 @@ if (installBtn) {
     html += '</optgroup>';
     html += '<optgroup label="Pocket Option OTC">';
     otcPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -168,14 +147,7 @@ function showPreview(file) {
 els.cameraBtn.addEventListener('click', () => {
     if (els.photoInput) els.photoInput.click();
 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -200,14 +172,7 @@ els.photoInput.addEventListener('change', (e) => {
         showPreview(file);
     }
 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -235,14 +200,7 @@ els.removePhoto.addEventListener('click', (e) => {
         els.preview.setAttribute('aria-hidden','true');
     }
 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -301,14 +259,7 @@ els.analyzeBtn.addEventListener('click', async () => {
         els.analyzeBtn.disabled = false;
     }
 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -333,14 +284,7 @@ if (els.langToggle) {
         lang = lang === 'en' ? 'ru' : 'en';
         applyLang();
     
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -384,14 +328,7 @@ document.addEventListener('pointerdown', function(e){
         circle.style.transform = 'scale(1)';
         circle.style.opacity = '0';
     
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -411,14 +348,7 @@ if (installBtn) {
 });
     setTimeout(()=>{ circle.remove(); }, 700);
 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -444,14 +374,7 @@ applyLang();
 // Register service worker if available and not already registered
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js').catch(()=>{
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -472,14 +395,7 @@ if (installBtn) {
 }
 
 
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
 
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
@@ -499,30 +415,7 @@ if (installBtn) {
 });
 
 
-// ==== Force show install button until installed ====
-document.addEventListener('DOMContentLoaded', function() {
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
-    const isAndroid = /android/i.test(ua);
 
-    if (!localStorage.getItem('pwaInstalled')) {
-        const installBtn = document.getElementById('install-btn');
-        if (installBtn) {
-            installBtn.classList.remove('hidden');
-            installBtn.addEventListener('click', async () => {
-                if (isIOS) {
-                    alert('Чтобы установить приложение, нажмите “Поделиться” → “На экран Домой”');
-                } else if (window.deferredPrompt) {
-                    window.deferredPrompt.prompt();
-                    const choiceResult = await window.deferredPrompt.userChoice;
-                    if (choiceResult.outcome === 'accepted') {
-                        localStorage.setItem('pwaInstalled', '1');
-                        installBtn.classList.add('hidden');
-                    }
-                } else {
-                    alert('Установка поддерживается только в Chrome/Edge на Android.');
-                }
-            });
         }
     }
 });
