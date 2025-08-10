@@ -55,7 +55,7 @@ function applyLang() {
 }
 
 function populatePairs() {
-    const mainPairs = ['EUR/USD','USD/JPY','GBP/USD','USD/CHF','USD/CAD','AUD/USD','NZD/USD'];
+    const mainPairs = ['Анализ фото','EUR/USD','USD/JPY','GBP/USD','USD/CHF','USD/CAD','AUD/USD','NZD/USD'];
     const otherPairs = [
         'EUR/GBP','EUR/JPY','GBP/JPY','AUD/JPY','CHF/JPY','USD/SGD','USD/HKD','USD/TRY',
         'EUR/AUD','CAD/JPY','NZD/JPY','AUD/NZD','EUR/CAD','GBP/CAD','AUD/CAD','NZD/CAD',
@@ -69,64 +69,13 @@ function populatePairs() {
     ];
     if (!els.pairSelect) return;
     let html = '<optgroup label="Main Pairs">';
-    mainPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const choiceResult = await deferredPrompt.userChoice;
-        if (choiceResult.outcome === 'accepted') {
-            console.log('PWA setup accepted');
-        } else {
-            console.log('PWA setup dismissed');
-        }
-        deferredPrompt = null;
-        installBtn.classList.add('hidden');
-    });
-}
-
-});
+    mainPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; });
     html += '</optgroup>';
     html += '<optgroup label="Other Pairs">';
-    otherPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const choiceResult = await deferredPrompt.userChoice;
-        if (choiceResult.outcome === 'accepted') {
-            console.log('PWA setup accepted');
-        } else {
-            console.log('PWA setup dismissed');
-        }
-        deferredPrompt = null;
-        installBtn.classList.add('hidden');
-    });
-}
-
-});
+    otherPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; });
     html += '</optgroup>';
     html += '<optgroup label="Pocket Option OTC">';
-    otcPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-
-if (installBtn) {
-    installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const choiceResult = await deferredPrompt.userChoice;
-        if (choiceResult.outcome === 'accepted') {
-            console.log('PWA setup accepted');
-        } else {
-            console.log('PWA setup dismissed');
-        }
-        deferredPrompt = null;
-        installBtn.classList.add('hidden');
-    });
-}
-
-});
+    otcPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; });
     html += '</optgroup>';
     els.pairSelect.innerHTML = html;
 }
@@ -214,16 +163,30 @@ if (installBtn) {
 });
 
 els.analyzeBtn.addEventListener('click', async () => {
-    // Простая имитация анализа
     if (!els.loading || !els.result) return;
     els.loading.classList.remove('hidden');
     els.result.textContent = '';
     els.result.dataset.custom = '';
     els.analyzeBtn.disabled = true;
-    els.result.style.color = ''; // сброс цвета
+    els.result.style.color = '';
     try {
         await new Promise(res=>setTimeout(res, 1100));
         const pair = (els.pairSelect && els.pairSelect.value) ? els.pairSelect.value : 'EUR/USD';
+        if (pair === 'Анализ фото') {
+            els.result.textContent = 'Результат анализа фото: Объект обнаружен ✅';
+            els.result.style.color = '#4ade80';
+        } else {
+            const fakeScore = (Math.random()*2-1).toFixed(2);
+            const scoreNum = parseFloat(fakeScore);
+            const isBuy = scoreNum > 0;
+            const signal = isBuy ? 'BUY' : 'SELL';
+            const arrow = isBuy ? '↑' : '↓';
+            const color = isBuy ? '#4ade80' : '#f87171';
+            const text = `${pair}: ${signal} ${arrow} (${fakeScore})`;
+            els.result.textContent = text;
+            els.result.style.color = color;
+        }
+
         const fakeScore = (Math.random()*2-1).toFixed(2); // -1..1
         const scoreNum = parseFloat(fakeScore);
         const isBuy = scoreNum > 0;
@@ -386,4 +349,10 @@ if (installBtn) {
     });
 }
 
+});
+
+
+
+        }
+    }
 });
