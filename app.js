@@ -70,12 +70,9 @@ function populatePairs() {
     if (!els.pairSelect) return;
     let html = '<optgroup label="Main Pairs">';
     mainPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -85,6 +82,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -92,12 +90,9 @@ let deferredPrompt;
     html += '</optgroup>';
     html += '<optgroup label="Other Pairs">';
     otherPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -107,6 +102,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -114,12 +110,9 @@ let deferredPrompt;
     html += '</optgroup>';
     html += '<optgroup label="Pocket Option OTC">';
     otcPairs.forEach(p => { html += '<option value="'+p+'">'+p+'</option>'; 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -129,6 +122,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -150,12 +144,9 @@ function showPreview(file) {
 els.cameraBtn.addEventListener('click', () => {
     if (els.photoInput) els.photoInput.click();
 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -165,6 +156,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -176,12 +168,9 @@ els.photoInput.addEventListener('change', (e) => {
         showPreview(file);
     }
 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -191,6 +180,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -205,12 +195,9 @@ els.removePhoto.addEventListener('click', (e) => {
         els.preview.setAttribute('aria-hidden','true');
     }
 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -220,6 +207,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -251,12 +239,9 @@ els.analyzeBtn.addEventListener('click', async () => {
         els.analyzeBtn.disabled = false;
     }
 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -266,6 +251,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -277,12 +263,9 @@ if (els.langToggle) {
         lang = lang === 'en' ? 'ru' : 'en';
         applyLang();
     
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -292,6 +275,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -322,12 +306,9 @@ document.addEventListener('pointerdown', function(e){
         circle.style.transform = 'scale(1)';
         circle.style.opacity = '0';
     
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -337,18 +318,16 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
 });
     setTimeout(()=>{ circle.remove(); }, 700);
 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -358,6 +337,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -370,12 +350,9 @@ applyLang();
 // Register service worker if available and not already registered
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js').catch(()=>{
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -385,6 +362,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
@@ -392,12 +370,9 @@ let deferredPrompt;
 }
 
 
-let deferredPrompt;
 
-    e.preventDefault();
-    deferredPrompt = e;
-});
-
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -407,6 +382,7 @@ let deferredPrompt;
             console.log('PWA setup dismissed');
         }
         deferredPrompt = null;
+        installBtn.classList.add('hidden');
     });
 }
 
